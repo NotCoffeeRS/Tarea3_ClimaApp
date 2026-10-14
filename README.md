@@ -56,7 +56,7 @@ Los commits generados con ayuda de Claude llevan la línea `Co-Authored-By: Clau
 
 **Parte del proyecto hecha sin ayuda de IA**
 
-> ✏️ _COMPLETAR por el autor con lo que realmente hizo por su cuenta (por ejemplo: elegir la API y el tema, probar la app, ajustar estilos, revisar y entender el código, grabar la demostración). No dejar esta sección con texto que no sea cierto._
+- **Verificación de la cuenta de GitHub (Student Developer Pack / GitHub Pro):** la hice yo por mi cuenta antes de esta tarea. Quedó verificada el 18 de septiembre de 2026 (tipo de solicitud: Student), como se ve en la captura entregada.
 
 ## Autor
 

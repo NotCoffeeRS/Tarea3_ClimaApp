@@ -2,24 +2,26 @@
 
 **Proyecto:** Clima App (Open-Meteo) · **Herramienta:** Claude Code (Claude Sonnet 5.5)
 
-> ✏️ **Instrucciones para el autor:** la tarea pide **al menos 5 prompts reales, copiados tal cual**.
-> Este archivo trae pre-llenado solo lo que ocurrió de verdad en la sesión donde se construyó la app
-> (Prompt 1 y el error 1). Los demás prompts **debes escribirlos tú** con lo que realmente le pediste
-> a la IA (copia/pega desde tu historial). No inventes entradas: debes poder explicarlas en la demostración.
-> Borra estas instrucciones al terminar.
+La profesora indicó que no eran necesarios 5 prompts distintos, sino una captura que muestre que las
+indicaciones del documento de la tarea fueron el prompt con el que la IA generó el código completo.
+Por eso esta bitácora documenta ese prompt, el resultado, un error real y lo aprendido.
 
 ---
 
-## Prompt 1 (real, de la sesión de construcción)
+## Prompt (real)
 
 **Prompt copiado tal cual:**
 ```
 revisa el documento y sigue las instrucciones
 ```
-(adjunto: `Tarea-3.pdf`)
+Adjunto: `Tarea-3.pdf` (las indicaciones de la tarea).
 
-**Qué respondió la IA:** leyó las instrucciones, eligió una app web de clima con Open-Meteo (sin clave de API),
-creó `index.html`, `style.css`, `app.js`, README y esta bitácora, con commits incrementales.
+**Evidencia:** captura de pantalla de la conversación, entregada junto con la tarea
+(`capturas/prompt.png` en este repositorio).
+
+**Qué respondió la IA:** leyó las indicaciones del PDF y generó la app completa: eligió una app web de clima
+con la API gratuita de Open-Meteo (sin clave, para no exponer secretos), creó `index.html`, `style.css` y `app.js`
+con manejo de errores, el `README.md` con la declaración de IA, y esta bitácora, con commits incrementales.
 
 **¿Funcionó a la primera?** Parcialmente. La estructura y la lógica funcionaron, pero al probar en el navegador
 la búsqueda se quedaba en "Buscando…" y terminaba en "La solicitud tardó demasiado" (ver Error 1).
@@ -28,69 +30,25 @@ la búsqueda se quedaba en "Buscando…" y terminaba en "La solicitud tardó dem
 
 ---
 
-## Prompt 2
+## Error detectado
 
-**Prompt copiado tal cual:**
-```
-(pegar aquí)
-```
-**Respuesta de la IA:** …
-**¿Funcionó a la primera?** …
-**Qué corregí o ajusté:** …
-
-## Prompt 3
-
-**Prompt copiado tal cual:**
-```
-(pegar aquí)
-```
-**Respuesta de la IA:** …
-**¿Funcionó a la primera?** …
-**Qué corregí o ajusté:** …
-
-## Prompt 4
-
-**Prompt copiado tal cual:**
-```
-(pegar aquí)
-```
-**Respuesta de la IA:** …
-**¿Funcionó a la primera?** …
-**Qué corregí o ajusté:** …
-
-## Prompt 5
-
-**Prompt copiado tal cual:**
-```
-(pegar aquí)
-```
-**Respuesta de la IA:** …
-**¿Funcionó a la primera?** …
-**Qué corregí o ajusté:** …
-
----
-
-## Error de la IA / del entorno detectado
-
-### Error 1 (real): timeout demasiado corto para el servicio de geocodificación
+### Error 1: timeout demasiado corto para el servicio de geocodificación
 
 - **Qué pasó:** el código generado usaba un timeout de 10 s. Al probar, `geocoding-api.open-meteo.com`
   respondía de forma intermitente y lenta (~5 s por petición, y a veces la conexión se colgaba), así que la app
   mostraba "La solicitud tardó demasiado" aunque el código estaba bien.
-- **Cómo se detectó:** se probó la app en el navegador, se revisó la consola/red (sin peticiones registradas) y
+- **Cómo se detectó:** se probó la app en el navegador, se revisó la consola y la red (sin peticiones registradas) y
   se comparó con `curl` directo: el host de pronóstico respondía rápido y el de geocodificación fallaba 1 de 3 veces.
-- **Cómo se resolvió:** se subió `TIMEOUT_MS` a 15000 en `app.js`; la búsqueda de Guadalajara y Madrid ya funcionó
-  y el caso de ciudad inexistente mostró el mensaje esperado.
-- **Lección:** el manejo de errores sí se probó de verdad (el aviso de timeout apareció), y un código "correcto"
-  puede fallar por el servicio externo; hay que medir antes de culpar a la lógica.
-
-> ✏️ Si detectaste otro error de la IA (función inexistente, código inseguro, etc.), agrégalo aquí.
+- **Cómo se resolvió:** se subió `TIMEOUT_MS` a 15000 en `app.js`. Después la búsqueda de Guadalajara y Madrid
+  funcionó y una ciudad inexistente mostró el mensaje de error esperado.
 
 ---
 
 ## Qué aprendí y qué haría distinto
 
-> ✏️ _COMPLETAR con tus propias palabras (2–4 líneas). Ideas de punto de partida, edítalas a tu experiencia:_
-> - Probar la app pronto, no solo leer el código que genera la IA.
-> - Pedir a la IA que explique cada parte para poder defenderla en la demostración.
-> - Dar prompts más específicos (API, manejo de errores, qué no hacer con claves).
+- Un código generado por la IA que parece correcto puede fallar por factores externos (aquí, un servicio lento);
+  hay que probarlo de verdad y medir antes de culpar a la lógica.
+- Las indicaciones de la tarea sirvieron como prompt, pero un prompt más específico (por ejemplo, tiempos límite
+  esperados o qué hacer ante errores) habría evitado el ajuste del timeout.
+- La próxima vez pediría a la IA que me explique cada función (`fetchJSON`, `findCity`, `getWeather`, `render`)
+  para poder defender todo el código en la demostración.
