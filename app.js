@@ -3,7 +3,7 @@
 
 const GEO_URL = "https://geocoding-api.open-meteo.com/v1/search";
 const FORECAST_URL = "https://api.open-meteo.com/v1/forecast";
-const TIMEOUT_MS = 10000;
+const TIMEOUT_MS = 15000;
 
 const form = document.getElementById("search-form");
 const cityInput = document.getElementById("city");
