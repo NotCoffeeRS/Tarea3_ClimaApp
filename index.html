@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clima App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <h1>Clima App</h1>
+    <p class="subtitle">Consulta el clima actual y el pronóstico de 5 días de cualquier ciudad.</p>
+
+    <form id="search-form" autocomplete="off">
+      <label for="city" class="sr-only">Ciudad</label>
+      <input id="city" type="text" placeholder="Ej. Guadalajara, Madrid, Tokio…" required>
+      <button type="submit" id="search-btn">Buscar</button>
+    </form>
+
+    <p id="status" role="status" aria-live="polite"></p>
+
+    <section id="result" hidden>
+      <div class="current">
+        <h2 id="place"></h2>
+        <div class="current-main">
+          <span id="icon" class="icon" aria-hidden="true"></span>
+          <span id="temp" class="temp"></span>
+        </div>
+        <p id="desc" class="desc"></p>
+        <ul class="details">
+          <li>Sensación: <strong id="feels"></strong></li>
+          <li>Humedad: <strong id="humidity"></strong></li>
+          <li>Viento: <strong id="wind"></strong></li>
+        </ul>
+      </div>
+
+      <h3>Próximos 5 días</h3>
+      <ul id="forecast" class="forecast"></ul>
+    </section>
+
+    <footer>Datos: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (gratis, sin clave de API)</footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
